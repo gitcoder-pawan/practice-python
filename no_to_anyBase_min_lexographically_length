@@ -1,0 +1,17 @@
+def nb(n, b):
+    # print("executed")
+    if n == 0:
+        return [0]
+    digits = []
+    while n:
+        digits.append(str(int(n % b)))
+        n //= b
+    return digits[::-1]
+
+n= int(input())
+s=[]
+for i in range(2,37):
+    x=nb(n,i)
+    y="".join(x)
+    s.append(y)
+print(min(s))

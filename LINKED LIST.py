@@ -29,7 +29,7 @@ class LL:
         if temp is None:
             return
         while temp is not None:
-            print(temp.data, end= " -> ")
+            print(temp.data, end=" -> ")
             temp = temp.next
         print()
 
@@ -51,7 +51,7 @@ class LL:
             return
 
         temp = self.head
-        while temp.next is not None and temp.next.data != fdata: #condition  ordering matters other it will give error as if temp.next will be none and condition 2nd second will be at 1st position then error will occur that None type has no attribute data
+        while temp.next is not None and temp.next.data != fdata:  # condition  ordering matters other it will give error as if temp.next will be none and condition 2nd second will be at 1st position then error will occur that None type has no attribute data
             temp = temp.next
         if temp.next is not None:
             curr = temp.next
@@ -65,7 +65,7 @@ class LL:
             return
 
         temp = self.head
-        while temp is not None and temp.data != fdata: #condition  ordering matters other it will give error as if temp will be none and condition 2nd second will be at 1st position then error will occur that None type has no attribute data
+        while temp is not None and temp.data != fdata:  # condition  ordering matters other it will give error as if temp will be none and condition 2nd second will be at 1st position then error will occur that None type has no attribute data
             temp = temp.next
         if temp is not None:
             new_node = Node(pdata)
@@ -75,7 +75,7 @@ class LL:
 
     def pop_back(self):
 
-        if self.is_empty() :
+        if self.is_empty():
             return
 
         prev = self.head.data
@@ -104,15 +104,15 @@ class LL:
         return prev
 
     def pop_before(self, fdata):
-        if self.is_empty() or self.head.next is None :
+        if self.is_empty() or self.head.next is None:
             return
         temp = self.head
         if temp.next.data == fdata:
             return self.pop_front()
         # temp = self.head
-        while temp.next.next is not None and temp.next.next.data != fdata  : #condition  ordering matters other it will give error as if temp.next.next will be none and condition 2nd second will be at 1st position then error will occur
+        while temp.next.next is not None and temp.next.next.data != fdata:  # condition  ordering matters other it will give error as if temp.next.next will be none and condition 2nd second will be at 1st position then error will occur
             temp = temp.next
-        if temp.next.next is not None :
+        if temp.next.next is not None:
             curr = temp.next.next
             prev = temp.next.data
             temp.next = curr
@@ -120,10 +120,10 @@ class LL:
 
     def pop_after(self, fdata):
 
-        if self.is_empty() or self.head.next is None :
+        if self.is_empty() or self.head.next is None:
             return
         temp = self.head
-        while temp is not None and temp.data != fdata :
+        while temp is not None and temp.data != fdata:
             temp = temp.next
 
         if temp is not None:
@@ -168,7 +168,7 @@ class LL:
         n = self.size()
         if n <= 2:
             return self.head.data
-        mid = n//2 if n % 2 == 0 else n // 2 + 1
+        mid = n // 2 if n % 2 == 0 else n // 2 + 1
         temp = self.head
         while mid - 1:
             temp = temp.next
@@ -187,28 +187,78 @@ class LL:
             temp = curr
         self.head = prev
 
+    def mergeSortedList(self, l2):
+        p = self.head
+        q = l2.head
+        s = None
+        if self.is_empty():
+            self.head = q
+            return
+        if l2.is_empty():
+            return
+
+        if p.data <= q.data:
+            s = p
+            p = s.next
+        else:
+            s = q
+            q = s.next
+
+        self.head = s
+        while p and q:
+            if p.data <= q.data:
+                s.next = p
+                s = p
+                p = s.next
+            else:
+                s.next = q
+                s = q
+                q = s.next
+        if q is None:
+            s.next = p
+        if p is None:
+            s.next = q
+
+
+
 
 l1 = LL()
-l1.push_back(5)
+# l1.push_back(5)
 # l1.push_back(-9)
-l1.push_front(8)
-l1.push_before(5, 6)
-l1.push_before(6, 4)
-l1.push_before(5,3)
+# l1.push_front(8)
+# l1.push_before(5, 6)
+# l1.push_before(6, 4)
+# l1.push_before(5, 3)
 # l1.push_before(10,10)
-l1.display()
+# l1.display()
 # l1.push_after(10,10)
 # print(f"pop back {l1.pop_back()}")
 # print(l1.is_empty())
 # print (f"pop front {l1.pop_front()}")
 # print (f" pop before  10 is {l1.pop_before(10)}")
 # print(f' pop after 8 is  {l1.pop_after(6)}')
-l1.update(6, 10)
-print("after updation ")
+# l1.update(6, 10)
+# print("after updation ")
+# l1.display()
+# print(l1.size())
+# print(l1.is_search(11))
+# print(f'middle is {l1.middle()}')
+# l1.display()
+# l1.reverse()
+# l1.display()
+l1.push_front(6)
+l1.push_front(2)
+l1.push_front(0)
+print("before merge sort l1 is ")
 l1.display()
-print(l1.size())
-print(l1.is_search(11))
-print (f'middle is {l1.middle()}')
-l1.display()
-l1.reverse()
-l1.display()
+print("before merge sort l2 is ")
+l2 = LL()
+l2.push_front(5)
+l2.push_front(4)
+l2.push_front(3)
+l2.push_front(1)
+l2.display()
+
+print("after merge sort l2 is")
+l2.mergeSortedList(l1)
+l2.display()

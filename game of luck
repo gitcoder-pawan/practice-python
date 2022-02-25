@@ -1,0 +1,36 @@
+n = int(input("enter no of players"))
+r= int(input("enter no of rounds"))
+n= int(n)
+r= int(r)
+
+l=[0]*n
+
+for i in range(r):
+    arr = list(map(int, input(f"enter no of {i} round value ").split()))
+    s= list(set(arr))
+    s.sort()
+    a=s[-1]
+    b=s[-2]
+    c=s[-3]
+    for j in range(n):
+        if arr[j]==a:
+            l[j]+=5
+        elif arr[j]==b:
+            l[j]+=3
+        elif arr[j] ==c:
+            l[j]+=1
+
+s= list(set(l))
+s.sort()
+#print(s)
+a=s[-1]
+b=s[-2]
+c=s[-3]
+x= l.count(a)
+y= l.count(b)
+z= l.count(c)
+print(f"No of winner with highest point {a} : {x} ")
+print(f"No of winner with highest point {b} : {y} ")
+print(f"No of winner with highest point {c} : {z} ")
+    
+        
